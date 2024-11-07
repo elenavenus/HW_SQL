@@ -4,6 +4,7 @@ import data.DataHelper;
 import data.SQLHelper;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
+import page.DashboardPage;
 import page.LoginPage;
 import page.VerificationPage;
 
@@ -18,12 +19,12 @@ public class BankLoginTest {
 
     @Test
     void shouldSuccessfulLogin() {
-        open("http://localhost:9999", LoginPage.class);
-        LoginPage loginPage = new LoginPage();
+        LoginPage loginPage = open("http://localhost:9999", LoginPage.class);
         var authInfo = DataHelper.getAuthInfowithTestData();
         loginPage.login(authInfo);
         VerificationPage verificationPage = new VerificationPage();
         var verificationCode = SQLHelper.getVerificationCode();
         verificationPage.verify(verificationCode.getCode());
+        DashboardPage dashboardPage = new DashboardPage();
     }
 }
